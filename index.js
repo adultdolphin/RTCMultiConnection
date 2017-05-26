@@ -1,1 +1,1 @@
-module.exports = require('./dist/RTCMultiConnection');
+module.exports.default = require('./dist/RTCMultiConnection');
