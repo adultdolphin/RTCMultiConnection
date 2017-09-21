@@ -4859,12 +4859,6 @@ function RTCMultiConnection(roomid, forceOptions) {
     };
 
     connection.onstream = function (e) {
-      var parentNode = connection.videosContainer;
-      parentNode.insertBefore(e.mediaElement, parentNode.firstChild);
-      e.mediaElement.play();
-      setTimeout(function () {
-        e.mediaElement.play();
-      }, 5000);
     };
 
     connection.onstreamended = function (e) {
