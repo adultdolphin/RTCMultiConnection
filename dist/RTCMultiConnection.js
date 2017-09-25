@@ -1495,7 +1495,7 @@ function RTCMultiConnection(roomid, forceOptions) {
           try {
             db = window.indexedDB.open('test');
             db.onerror = function () {
-              return true;
+              return false;
             };
           } catch (e) {
             isPrivate = true;
