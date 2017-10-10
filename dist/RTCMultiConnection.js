@@ -291,11 +291,13 @@ function RTCMultiConnection(roomid, forceOptions) {
         console.info('socket.io connection is opened.');
       }
 
-      setTimeout(function () {
-        connection.socket.emit('extra-data-updated', connection.extra);
+      if (connectCallback) {
+        connectCallback(connection.socket);
+      }
 
-        if (connectCallback) {
-          connectCallback(connection.socket);
+      setTimeout(function () {
+        if (connection.socket) {
+          connection.socket.emit('extra-data-updated', connection.extra);
         }
       }, 1000);
     });
