@@ -1,4 +1,5 @@
 'use strict';
+var io = require('./socket.js');
 
 // Last time updated: 2017-04-29 7:08:10 AM UTC
 
@@ -39,8 +40,7 @@ function RTCMultiConnection(roomid, forceOptions) {
     try {
       io.sockets = {};
     } catch (e) {
-    }
-    ;
+    };
 
     if (!connection.socketURL) {
       connection.socketURL = '/';
