@@ -2122,16 +2122,7 @@ function RTCMultiConnection(roomid, forceOptions) {
       isAudioOnly = true;
     }
 
-    if (DetectRTC.browser.name === 'Firefox') {
-      if (connection.session.video || connection.session.screen) {
-        isAudioOnly = false;
-      }
-    }
-
     var mediaElement = document.createElement(isAudioOnly ? 'audio' : 'video');
-
-    mediaElement.srcObject = stream;
-    mediaElement.controls = true;
 
     // http://goo.gl/WZ5nFl
     // Firefox don't yet support onended for any stream (remote/local)
