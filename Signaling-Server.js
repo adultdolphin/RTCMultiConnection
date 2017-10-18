@@ -83,7 +83,7 @@ module.exports = exports = function(app, socketCallback) {
         }
 
         // temporarily disabled
-        if (!!listOfUsers[params.userid]) {
+        if (false && !!listOfUsers[params.userid]) {
             params.dontUpdateUserId = true;
 
             var useridAlreadyTaken = params.userid;
@@ -94,7 +94,7 @@ module.exports = exports = function(app, socketCallback) {
         socket.userid = params.userid;
         appendUser(socket);
 
-        if (autoCloseEntireSession == 'false' && sessionid == socket.userid) {
+        if (autoCloseEntireSession == 'false' && Object.keys(listOfUsers).length == 1) {
             socket.shiftModerationControlBeforeLeaving = true;
         }
 
@@ -327,6 +327,8 @@ module.exports = exports = function(app, socketCallback) {
                     return;
                 }
                 keepUnique.push(userSocket.userid);
+
+                if (params.oneToMany && userSocket.userid !== roomInitiator.socket.userid) return;
 
                 message.remoteUserId = userSocket.userid;
                 userSocket.emit(socketMessageEvent, message);

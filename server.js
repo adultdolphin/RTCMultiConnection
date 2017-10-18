@@ -60,6 +60,10 @@ function serverHandler(request, response) {
             return;
         }
 
+        if (filename && filename.indexOf('Video-Broadcasting.html') !== -1) {
+            filename = filename.replace('Video-Broadcasting.html', 'video-broadcasting.html');
+        }
+
         var stats;
 
         try {
@@ -90,8 +94,9 @@ function serverHandler(request, response) {
             if (filename.indexOf(resolveURL('/demos/MultiRTC/')) !== -1) {
                 filename = filename.replace(resolveURL('/demos/MultiRTC/'), '');
                 filename += resolveURL('/demos/MultiRTC/index.html');
-            } else if (filename.indexOf(resolveURL('/demos/')) !== -1) {
+            } else if (filename.indexOf(resolveURL('/demos')) !== -1) {
                 filename = filename.replace(resolveURL('/demos/'), '');
+                filename = filename.replace(resolveURL('/demos'), '');
                 filename += resolveURL('/demos/index.html');
             } else {
                 filename += resolveURL('/demos/index.html');

@@ -197,7 +197,7 @@ function setDefaults(connection) {
         html2canvas: 'https://cdn.webrtc-experiment.com/screenshot.js',
         hark: 'https://cdn.webrtc-experiment.com/hark.js',
         firebase: 'https://cdn.webrtc-experiment.com/firebase.js',
-        firebaseio: 'https://webrtc-experiment.firebaseIO.com/',
+        firebaseio: 'https://webrtc.firebaseIO.com/',
         muted: 'https://cdn.webrtc-experiment.com/images/muted.png',
         getConnectionStats: 'https://cdn.webrtc-experiment.com/getConnectionStats.js',
         FileBufferReader: 'https://cdn.webrtc-experiment.com/FileBufferReader.js'
@@ -540,29 +540,7 @@ function setDefaults(connection) {
         }
     };
 
-    var iceServers = [];
-
-    iceServers.push({
-        url: 'stun:stun.l.google.com:19302'
-    });
-
-    iceServers.push({
-        url: 'stun:stun.anyfirewall.com:3478'
-    });
-
-    iceServers.push({
-        url: 'turn:turn.bistri.com:80',
-        credential: 'homeo',
-        username: 'homeo'
-    });
-
-    iceServers.push({
-        url: 'turn:turn.anyfirewall.com:443?transport=tcp',
-        credential: 'webrtc',
-        username: 'webrtc'
-    });
-
-    connection.iceServers = iceServers;
+    connection.iceServers = IceServersHandler.getIceServers();
 
     connection.rtcConfiguration = {
         iceServers: null,
@@ -1310,4 +1288,17 @@ function setDefaults(connection) {
     };
 
     connection.Plugin = Plugin;
+
+    connection.resetScreen = function() {
+        sourceId = null;
+        if (DetectRTC && DetectRTC.screen) {
+            delete DetectRTC.screen.sourceId;
+        }
+
+        currentUserMediaRequest = {
+            streams: [],
+            mutex: false,
+            queueRequests: []
+        };
+    };
 }
